@@ -1,0 +1,819 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Shakespeare}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{EECS 731 - To be, or not to
+be}\label{eecs-731---to-be-or-not-to-be}
+
+\paragraph{Homework 2}\label{homework-2}
+
+\subsection{Introduction}\label{introduction}
+
+Shakespeare is well known for his plays. In all the created plays,
+multiple characters exist with various lines. Using text and line data
+from Shakespeare's plays, can the character be classified? To further
+breakdown the problem, certain characters appear in only certain plays.
+This provides better dependency for character detection. Furthermore,
+characters only appear in certain scenes. By parsing the act/scene line,
+it's possible to take this into consideration. Lastly, certain terms are
+more frequent among certain players compared to other players. With
+these features, it is possible to correctly classify.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}Import libraries}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction} \PY{k}{import} \PY{n}{DictVectorizer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier} \PY{k}{as} \PY{n}{RFC}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{naive\PYZus{}bayes}
+        
+        
+        \PY{c+c1}{\PYZsh{}Import dataset}
+        \PY{n}{srcSet}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/external/Shakespeare\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Cleaning Dataset}\label{cleaning-dataset}
+
+First, the dataset needs cleaning of text without associated characters
+as this is not classifiable unless stating NaN. However, this is
+irrelevant for the assignment.
+
+Next, the data line is removed as indexing accounts for this.
+
+Lastly, all empty values for ActSceneLine are removed as this is used to
+determine character. Furthermore, the empty values tend to indicate an
+"Entrance" or "Exit".
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}Remove NaN for Player}
+        \PY{n}{srcSet}\PY{o}{=}\PY{n}{srcSet}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Remove data scene line as indexing accounts for such}
+        \PY{n}{srcSet}\PY{o}{=}\PY{n}{srcSet}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}Remove NaN for ActSceneLine}
+        \PY{n}{srcSet}\PY{o}{=}\PY{n}{srcSet}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ActSceneLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Transforming}\label{transforming}
+
+In order to generalize the acts and scenes for better classification,
+the act-scene-line must be parsed. Then the line and original
+act-scene-line are dropped as they are irrelevant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}Copy column for manipulation}
+        \PY{n}{actSceneSplit}\PY{o}{=}\PY{n}{srcSet}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ActSceneLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Split the column string data into Act, Scene and Line numbers}
+        \PY{n}{actSceneSplit}\PY{o}{=}\PY{n}{actSceneSplit}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{expand}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Rename columns to appropriate label}
+        \PY{n}{actSceneSplit}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scene}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}Merge with existing dataframe}
+        \PY{n}{srcSet}\PY{o}{=}\PY{n}{srcSet}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{actSceneSplit}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Drop ActSceneLine and Line}
+        \PY{n}{srcSet}\PY{o}{=}\PY{n}{srcSet}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ActSceneLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Data Modeling}\label{data-modeling}
+
+Before classification of characters in Shakespeare's play, the data
+needs additional value and formality. Since player's talking in text
+lines, multiple values can be extracted. First, the text is broken up
+into words for each player. Second, the frequency of words for each
+player is determined by counting total words and amount of repeats.
+Lastly, the words require transformation from string to numerical
+values. This is accomplished with hashing.
+
+This data is then exported to a csv for internal data usage.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}create dictionary for each character for learning}
+        
+        \PY{c+c1}{\PYZsh{}extract player name and line}
+        \PY{n}{doc}\PY{o}{=}\PY{n}{srcSet}
+        
+        \PY{c+c1}{\PYZsh{}Alter line to array of words}
+        \PY{n}{doc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{doc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[\PYZca{}A\PYZhy{}Za\PYZhy{}z0\PYZhy{}9}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{]+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Drop the player lines}
+        \PY{n}{doc}\PY{o}{=}\PY{n}{doc}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{}Create new dataframe focused on each word with each Player}
+        \PY{n}{rows}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{doc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLinenumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scene}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{r}\PY{o}{=}\PY{n}{row}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{r}\PY{o}{.}\PY{n}{words}\PY{p}{:}
+                \PY{n}{rows}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLinenumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scene}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{word}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{wordDoc}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{rows}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLinenumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scene}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Remove all empty values}
+        \PY{n}{wordDoc}\PY{o}{=}\PY{n}{wordDoc}\PY{p}{[}\PY{n}{wordDoc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{len}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]} 
+        
+        
+        \PY{c+c1}{\PYZsh{}Start normalizing by counting the amount of same words}
+        \PY{n}{wordCount}\PY{o}{=}\PY{n}{wordDoc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLinenumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scene}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{Words}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{}Equate the counts of words for each player}
+        \PY{n}{word\PYZus{}total}\PY{o}{=}\PY{n}{wordCount}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Calculate ratio of total words and single words for each Player}
+        \PY{n}{perPlayerrate}\PY{o}{=}\PY{n}{wordCount}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{word\PYZus{}total}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Place ratio into corpus by merging on Player}
+        \PY{n}{perPlayerrate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{perPlayerrate}\PY{o}{.}\PY{n}{wc}\PY{o}{/}\PY{n}{perPlayerrate}\PY{o}{.}\PY{n}{nt}
+        
+        \PY{c+c1}{\PYZsh{}output to internal data}
+        \PY{n}{perPlayerrate}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/internal/textTF.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{randomForestData}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/internal/textTF.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{randomForestData}\PY{o}{.}\PY{n}{Words}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n+nb}{hash}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Classification Models}\label{classification-models}
+
+Due to the numerical values of columns, I chose to implement Random
+Forests and SVMs.
+
+Before inputting the feature space, the data transformed and modelled
+requires a few more alterations. First, data needs dropping of word
+count and repetition of a player as these are equated in column TF.
+Furthermore, the data is split into 80/20/20 for training, testing and
+validation.
+
+\paragraph{Random Forest}\label{random-forest}
+
+The Random Forest Classifier is implemented. The features and label data
+is trained then the error is determined by how many labels were not
+correctly predicted.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Further transform data for machine learning usability\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{c+c1}{\PYZsh{}import data}
+        \PY{n}{randomForestData}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/internal/textTF.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Drop word count and total word count}
+        \PY{n}{randomForestData}\PY{o}{=}\PY{n}{randomForestData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Labelled data }
+        \PY{n}{label}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}Drop labelled data and state features}
+        \PY{n}{features}\PY{o}{=}\PY{n}{randomForestData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}For plotting, column list is saved}
+        \PY{n}{feature\PYZus{}list}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n}{randomForestData}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Normalize the finished dataset before converting to array}
+        \PY{n}{mini}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLinenumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+        \PY{n}{maxi}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLinenumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLinenumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLinenumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{mini}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{maxi}\PY{o}{\PYZhy{}}\PY{n}{mini}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{mini}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+        \PY{n}{maxi}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{mini}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{maxi}\PY{o}{\PYZhy{}}\PY{n}{mini}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{mini}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scene}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+        \PY{n}{maxi}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scene}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scene}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{randomForestData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scene}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{mini}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{maxi}\PY{o}{\PYZhy{}}\PY{n}{mini}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Convert to numpy array}
+        \PY{n}{features}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Training/Testing/Validation\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{n}{x}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{features}\PY{p}{,}\PY{n}{label}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{train\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{)}
+        \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.15}\PY{p}{,}\PY{n}{train\PYZus{}size} \PY{o}{=}\PY{l+m+mf}{0.85}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Random Forest Implementation\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Data Counts\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{c+c1}{\PYZsh{}527979 \PYZhy{} train}
+        \PY{c+c1}{\PYZsh{}65998 \PYZhy{} test}
+        \PY{c+c1}{\PYZsh{}65997 \PYZhy{} validate}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Train\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{n}{rf}\PY{o}{=}\PY{n}{RFC}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{rf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Testing Predictions and Errors\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{n}{predictions}\PY{o}{=}\PY{n}{rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}setup both sets}
+        \PY{n}{y\PYZus{}test}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+        \PY{n}{y\PYZus{}test}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{pred}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{predictions}\PY{p}{)}
+        
+        \PY{n}{mergd}\PY{o}{=}\PY{n}{pred}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+        \PY{n}{mergd}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{incorrect}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{n}{total}\PY{o}{=}\PY{l+m+mi}{0}
+        
+        \PY{c+c1}{\PYZsh{}calculate the errors by determining how many correct predictions}
+        \PY{k}{for} \PY{n}{index}\PY{p}{,}\PY{n}{row} \PY{o+ow}{in} \PY{n}{mergd}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{row}
+            \PY{k}{if} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                \PY{n}{incorrect}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{n}{total}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            
+        \PY{n}{correct}\PY{o}{=}\PY{n}{total}\PY{o}{\PYZhy{}}\PY{n}{incorrect}
+        
+        \PY{c+c1}{\PYZsh{}Outputting accuracy of model}
+        \PY{k}{if} \PY{n}{total}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy for Testing:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{correct}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{total}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No items...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy for Testing: 0.98
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Validating training and testing data\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{n}{predictions}\PY{o}{=}\PY{n}{rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}setup both sets}
+        \PY{n}{y\PYZus{}val}\PY{o}{=}\PY{n}{y\PYZus{}val}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+        \PY{n}{y\PYZus{}val}\PY{o}{=}\PY{n}{y\PYZus{}val}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{pred}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{predictions}\PY{p}{)}
+        
+        \PY{n}{mergd}\PY{o}{=}\PY{n}{pred}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{y\PYZus{}val}\PY{p}{)}
+        \PY{n}{mergd}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{incorrect}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{n}{total}\PY{o}{=}\PY{l+m+mi}{0}
+        
+        \PY{c+c1}{\PYZsh{}calculate the errors by determining how many correct predictions}
+        \PY{k}{for} \PY{n}{index}\PY{p}{,}\PY{n}{row} \PY{o+ow}{in} \PY{n}{mergd}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{row}
+            \PY{k}{if} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                \PY{n}{incorrect}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{n}{total}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            
+        \PY{n}{correct}\PY{o}{=}\PY{n}{total}\PY{o}{\PYZhy{}}\PY{n}{incorrect}
+        
+        \PY{c+c1}{\PYZsh{}Outputting accuracy of model}
+        \PY{k}{if} \PY{n}{total}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy for Validation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{correct}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{total}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No items...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy for Validation: 0.98
+
+    \end{Verbatim}
+
+    \paragraph{Naive Bayes}\label{naive-bayes}
+
+Naive Bayes is used to multi-class classification and is good for
+test/categorical classification. This algorithm works well with data
+occurrence counts. For this data, the only occurrence is through TF.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{naive} \PY{o}{=} \PY{n}{naive\PYZus{}bayes}\PY{o}{.}\PY{n}{MultinomialNB}\PY{p}{(}\PY{p}{)}
+        \PY{n}{naive}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} MultinomialNB(alpha=1.0, class\_prior=None, fit\_prior=True)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Testing Predictions and Errors\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{n}{predictions}\PY{o}{=}\PY{n}{naive}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}setup both sets}
+        \PY{n}{y\PYZus{}test}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+        \PY{n}{y\PYZus{}test}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{pred}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{predictions}\PY{p}{)}
+        
+        \PY{n}{mergd}\PY{o}{=}\PY{n}{pred}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+        \PY{n}{mergd}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{incorrect}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{n}{total}\PY{o}{=}\PY{l+m+mi}{0}
+        
+        \PY{c+c1}{\PYZsh{}calculate the errors by determining how many correct predictions}
+        \PY{k}{for} \PY{n}{index}\PY{p}{,}\PY{n}{row} \PY{o+ow}{in} \PY{n}{mergd}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{row}
+            \PY{k}{if} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                \PY{n}{incorrect}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{n}{total}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            
+        \PY{n}{correct}\PY{o}{=}\PY{n}{total}\PY{o}{\PYZhy{}}\PY{n}{incorrect}
+        
+        \PY{c+c1}{\PYZsh{}Outputting accuracy of model}
+        \PY{k}{if} \PY{n}{total}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{correct}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{total}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No validated data misclassified...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.02
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Validating training and testing data\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{n}{predictions}\PY{o}{=}\PY{n}{naive}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}setup both sets}
+         \PY{n}{y\PYZus{}val}\PY{o}{=}\PY{n}{y\PYZus{}val}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y\PYZus{}val}\PY{o}{=}\PY{n}{y\PYZus{}val}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{pred}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{predictions}\PY{p}{)}
+         
+         \PY{n}{mergd}\PY{o}{=}\PY{n}{pred}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{y\PYZus{}val}\PY{p}{)}
+         \PY{n}{mergd}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{incorrect}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{n}{total}\PY{o}{=}\PY{l+m+mi}{0}
+         
+         \PY{c+c1}{\PYZsh{}calculate the errors by determining how many correct predictions}
+         \PY{k}{for} \PY{n}{index}\PY{p}{,}\PY{n}{row} \PY{o+ow}{in} \PY{n}{mergd}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{row}
+             \PY{k}{if} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{incorrect}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{n}{total}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             
+         \PY{n}{correct}\PY{o}{=}\PY{n}{total}\PY{o}{\PYZhy{}}\PY{n}{incorrect}
+         
+         \PY{k}{if} \PY{n}{total}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy for Validation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{correct}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{total}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No items...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy for Validation: 0.02
+
+    \end{Verbatim}
+
+    \subsection{Analysis}\label{analysis}
+
+The two classification models used were Random Forest Generator and
+Naive Bayes.
+
+\paragraph{Random Forest}\label{random-forest}
+
+To measure the success of this model, the accuracy is the true positives
+(true classification) compared to the entire dataset. This accuracy is
+measured to be 0.97. This is good as 1 is 100\% rate. Due to the feature
+set, this makes sense as the data is categorized based on features such
+as when players appear in scenes and acts as well as frequency of
+certain teminology.
+
+\paragraph{Naive Bayes}\label{naive-bayes}
+
+Measurement of success is the same as random forest. The accuracy is
+determined based on correctness of classification. However, unlike
+random forests, the accuracy calculated is 0.02. This is due to the
+feature type. This algorithm does well with occurence features such as
+term frequency. This is a feature in the data set; however, the acts and
+scene columns are not based on frequencies. To alleviate this in the
+future, it's possible to create each scene and act as a separate column
+and record the occurences of players in each.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}Create table to compare results}
+         
+         \PY{n}{output}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Algorithm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Naive Bayes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.98}\PY{p}{,} \PY{l+m+mf}{0.02}\PY{p}{]}\PY{p}{\PYZcb{}}
+         \PY{n}{output}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{output}\PY{p}{)}
+         \PY{n}{output}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}        Algorithm  Accuracy
+         0  Random Forest      0.98
+         1    Naive Bayes      0.02
+\end{Verbatim}
+            
+    \subsection{\#\# Previous Trials}\label{previous-trials}
+
+\paragraph{SVM}\label{svm}
+
+The Support Vector Machine is the second classification model. Took too
+long to train.
+
+Below is all the programming done for this:
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+\begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+from sklearn import svm\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+\#-\/-\/-\/-\/-\/-\/-\/-\/-\/-Train SVM-\/-\/-\/-\/-\/-\/-\/-\/-
+\#Standardize the data x\_scale=preprocessing.scale(x\_train)
+x\_teststd=preprocessing.scale(x\_test)
+x\_valstd=preprocessing.scale(x\_val)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+clf=svm.SVC(kernel='sigmoid', verbose=2, tol=0.1, )\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+clf.fit(x\_train, y\_train)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+predictions=clf.predict(x\_test)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+\#setup both sets y\_test=y\_test.reset\_index()
+y\_test=y\_test.drop(columns={[}'index'{]})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+pred=pd.DataFrame(predictions)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+mergd=pred.join(y\_test) mergd.columns={[}'Predict', 'Actual'{]}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+\#\#\#\# Logistic Regression Attempted to use logistic regression, but
+never stopped even on convergence....\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\section{Standardize the data}\label{standardize-the-data}
+
+x\_scale=preprocessing.scale(x\_train)
+x\_teststd=preprocessing.scale(x\_test)
+x\_valstd=preprocessing.scale(x\_val)
+
+logistReg=LogisticRegression(max\_iter=40,random\_state=0, solver='sag',
+verbose=3) logistReg.fit(x\_scale, y\_train)
+
+\section{-\/-\/-\/-\/-\/-\/-\/-Testing Predictions and
+Errors-\/-\/-\/-\/-\/-\/-\/-\/-\/-}\label{testing-predictions-and-errors----------}
+
+predictions=logistReg.predict(x\_teststd)
+
+\section{setup both sets}\label{setup-both-sets}
+
+y\_test=y\_test.reset\_index()
+y\_test=y\_test.drop(columns={[}'index'{]})
+
+pred=pd.DataFrame(predictions)
+
+mergd=pred.join(y\_test) mergd.columns={[}'Predict', 'Actual'{]}
+
+etc.....
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Conclusion}\label{conclusion}
+
+For determining players based on lines in a play, the best features
+include the scene, act, player number and term frequencies. In terms of
+model, since these features consist of frequency data and discrete
+values, random forests work best especially considering the amount of
+rows. Naive Bayes may work, but the current features need readjusting to
+all frequency data instead of a combination of both.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Resources}\label{resources}
+
+\paragraph{Text Analysis in Pandas}\label{text-analysis-in-pandas}
+
+https://sigdelta.com/blog/text-analysis-in-pandas/
+
+\paragraph{Using Random Forests}\label{using-random-forests}
+
+https://towardsdatascience.com/random-forest-in-python-24d0893d51c0
+
+\paragraph{To split train/test/validation to
+80/10/10}\label{to-split-traintestvalidation-to-801010}
+
+https://stackoverflow.com/questions/38250710/how-to-split-data-into-3-sets-train-validation-and-test/38251213\#38251213
+
+\paragraph{For counter to create array of used
+words}\label{for-counter-to-create-array-of-used-words}
+
+https://stackoverflow.com/questions/51280327/trying-to-create-a-bag-of-words-of-pandas-df
+
+\paragraph{List difference}\label{list-difference}
+
+https://stackoverflow.com/questions/6486450/python-compute-list-difference/6486467
+
+\paragraph{Logisitic Regression on Very Large
+data}\label{logisitic-regression-on-very-large-data}
+
+https://chrisalbon.com/machine\_learning/logistic\_regression/logistic\_regression\_on\_very\_large\_data/
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
